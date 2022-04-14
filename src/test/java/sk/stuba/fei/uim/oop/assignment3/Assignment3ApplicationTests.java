@@ -198,7 +198,7 @@ class Assignment3ApplicationTests {
     @Test
     void testUpdateMissingBook() throws Exception {
         TestBookResponse product = addBook();
-        mockMvc.perform(put("/product/" + (product.getId() + 1))
+        mockMvc.perform(put("/book/" + (product.getId() + 1))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectToString(new TestBookRequest())))
@@ -208,11 +208,126 @@ class Assignment3ApplicationTests {
     @Test
     void testUpdateMissingAuthor() throws Exception {
         TestAuthorResponse product = addAuthor();
-        mockMvc.perform(put("/product/" + (product.getId() + 1))
+        mockMvc.perform(put("/author/" + (product.getId() + 1))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectToString(new TestAuthor())))
                 .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeleteBook() throws Exception {
+        TestBookResponse book = addBook();
+        mockMvc.perform(delete("/book/" + book.getId()))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/book/" + book.getId()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeleteAuthor() throws Exception {
+        TestAuthorResponse author = addAuthor();
+        mockMvc.perform(delete("/author/" + author.getId()))
+                .andExpect(status().isOk());
+        mockMvc.perform(get("/author/" + author.getId()))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeleteMissingBook() throws Exception {
+        TestBookResponse book = addBook();
+        mockMvc.perform(delete("/book/" + (book.getId() + 1)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testDeleteMissingAuthor() throws Exception {
+        TestAuthorResponse author = addAuthor();
+        mockMvc.perform(delete("/author/" + (author.getId() + 1)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testGetBookAmount() throws Exception {
+        TestBookResponse book = addBook();
+        mockMvc.perform(get("/book/" + book.getId() + "/amount")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(mvcResult -> {
+                    Amount response = stringToObject(mvcResult, Amount.class);
+                    assert Objects.equals(response.getAmount(), book.getAmount());
+                });
+    }
+
+    @Test
+    void testGetMissingBookAmount() throws Exception {
+        TestBookResponse book = addBook();
+        mockMvc.perform(get("/book/" + (book.getId() + 1) + "/amount")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testIncrementBookAmount() throws Exception {
+        TestBookResponse book = addBook();
+        Amount request = new Amount();
+        request.setAmount(10);
+        mockMvc.perform(post("/book/" + book.getId() + "/amount")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectToString(request)))
+                .andExpect(status().isOk())
+                .andDo(mvcResult -> {
+                    Amount response = stringToObject(mvcResult, Amount.class);
+                    assert Objects.equals(response.getAmount(), book.getAmount() + request.getAmount());
+                });
+        mockMvc.perform(get("/book/" + book.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(mvcResult -> {
+                    TestBookResponse response = stringToObject(mvcResult, TestBookResponse.class);
+                    assert Objects.equals(response.getAmount(), book.getAmount() + request.getAmount());
+                });
+    }
+
+    @Test
+    void testIncrementMissingBookAmount() throws Exception {
+        TestBookResponse book = addBook();
+        Amount request = new Amount();
+        request.setAmount(10);
+        mockMvc.perform(post("/book/" + (book.getId() + 1) + "/amount")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectToString(request)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void testGetBookLendCount() throws Exception {
+        TestBookResponse book = addBook();
+        mockMvc.perform(get("/book/" + book.getId() + "/lendCount")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(mvcResult -> {
+                    Amount response = stringToObject(mvcResult, Amount.class);
+                    assert Objects.equals(response.getAmount(), book.getLendCount());
+                });
+    }
+
+    @Test
+    void testGetMissingBookLendCount() throws Exception {
+        TestBookResponse book = addBook();
+        mockMvc.perform(get("/book/" + (book.getId() + 1) + "/lendCount")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
+
+
+    /////////////////////////////////////////////////////// LENDING LISTS
+
+    @Test
+    void testAddShoppingCart() throws Exception {
+//        addCart();
     }
 
     TestAuthorResponse addAuthor() throws Exception {
@@ -239,7 +354,7 @@ class Assignment3ApplicationTests {
 
     TestBookResponse addBook() throws Exception {
         TestAuthorResponse author = addAuthor();
-        return addBook("name", "description", 100, 2, 2, author.getId(), status().is2xxSuccessful());
+        return addBook("name", "description", 100, 4, 2, author.getId(), status().is2xxSuccessful());
     }
 
     TestBookResponse addBook(String name, String description, int pages, int amount, int lendCount, long author, ResultMatcher statusMatcher) throws Exception {
