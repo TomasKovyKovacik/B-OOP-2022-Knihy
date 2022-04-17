@@ -153,7 +153,7 @@ class Assignment3ApplicationTests {
                     TestBookResponse response = stringToObject(mvcResult, TestBookResponse.class);
                     assert Objects.equals(response.getName(), update1.getName());
                     assert Objects.equals(response.getDescription(), update2.getDescription());
-                    assert Objects.equals(response.getAuthor().getId(), update3.getAuthor());
+                    assert Objects.equals(response.getAuthor(), update3.getAuthor());
                     assert Objects.equals(response.getPages(), book.getPages());
                 });
         mockMvc.perform(put("/book/" + book.getId())
@@ -164,7 +164,7 @@ class Assignment3ApplicationTests {
                     TestBookResponse response = stringToObject(mvcResult, TestBookResponse.class);
                     assert Objects.equals(response.getName(), update1.getName());
                     assert Objects.equals(response.getDescription(), update2.getDescription());
-                    assert Objects.equals(response.getAuthor().getId(), update3.getAuthor());
+                    assert Objects.equals(response.getAuthor(), update3.getAuthor());
                     assert Objects.equals(response.getPages(), update4.getPages());
                 });
     }
@@ -662,7 +662,7 @@ class Assignment3ApplicationTests {
                     assert Objects.equals(book.getPages(), bookToControl.getPages());
                     assert Objects.equals(book.getAmount(), bookToControl.getAmount());
                     assert Objects.equals(book.getLendCount(), bookToControl.getLendCount());
-                    assert Objects.equals(book.getAuthor(), bookToControl.getAuthor().getId());
+                    assert Objects.equals(book.getAuthor(), bookToControl.getAuthor());
                 })
                 .andReturn();
         return stringToObject(mvcResult, TestBookResponse.class);
@@ -734,7 +734,7 @@ class Assignment3ApplicationTests {
     @Getter
     @Setter
     private static class TestBookResponse extends Amount {
-        protected TestAuthorResponse author;
+        protected long author;
         protected long id;
         protected String name;
         protected String description;
@@ -753,7 +753,7 @@ class Assignment3ApplicationTests {
     @Setter
     private static class TestAuthorResponse extends TestAuthor {
         protected long id;
-        protected List<TestBookResponse> books;
+        protected List<Long> books;
     }
 
     @Getter

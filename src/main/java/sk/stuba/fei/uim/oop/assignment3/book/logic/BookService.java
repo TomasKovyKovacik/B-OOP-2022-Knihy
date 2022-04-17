@@ -31,9 +31,9 @@ public class BookService implements IBookService {
     @Override
     public Book create(BookRequest request) throws NotFoundException {
         Author author = this.authorService.getById(request.getAuthor());
-        Book b = new Book(request, author);
+        Book b = this.repository.save(new Book(request, author));
         this.authorService.addBookToAuthor(author, b);
-        return this.repository.save(b);
+        return b;
     }
 
     @Override
