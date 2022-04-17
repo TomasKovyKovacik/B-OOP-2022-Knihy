@@ -6,7 +6,7 @@ Vašou úlohou je naprogramovať aplikačný server v jazyku Java s pomocou fram
 Aplikačný server umožňuje správu kníh, ich autorov a ich požičiavania (napr. z knižnice).
 Webové rozhranie (API), ako aj objekty, ktoré sa používajú na komunikáciu s vonkajším svetom sú definované v zadaní a musi byť použité na komunikáciu cez webové služby. Mimo webového rozhrania môžete použiť ďalšie objekty podľa vášho návrhu, ak to uznáte za vhodné.
 
-Špecifikáciu webového rozhrania, ktoré má aplikácia poskytovať nájdete tu: --------------------------------------------------------------
+Špecifikáciu webového rozhrania, ktoré má aplikácia poskytovať nájdete tu: https://app.swaggerhub.com/apis-docs/stuba-fei-uim-oop/OOPZadanie3Knihy/1.0.0-oas3
 
 Pokiaľ je v API uvedené, že sa má vrátiť kód 404 a v popise nie je povedané kedy, je ho potrebné vrátiť v prípade, že poskytnuté ID v systéme neexistuje.
 
@@ -26,7 +26,7 @@ Projekt obsahuje automatizované testy. Testy sa **NESPÚŠŤAJÚ** automaticky 
 
 ## Hodnotenie
 
-Zadanie je hodnotené 15 bodmi. **Odovzdaný program musí byť skompilovateľný, inak je
+Zadanie je hodnotené 15 bodmi. OOP princípy a Spring záležitosti sú hodnotené 5 bodmi (v prípade tohto zadania môže byt aj viac). 10 bodov sa dostáva za automatizované testy. Prvých 14 testov hodnotených nie je, za každý další úspešný test dostanete 0,33 bodu. **Odovzdaný program musí byť skompilovateľný, inak je
 hodnotený 0 bodmi**. Skompilovateľnosť zadania kontroluje aj github pipeline. Hlavný dôraz v hodnotení sa kladie na objektový prístup a princípy OOP,
 okrem iného:
 
@@ -40,13 +40,13 @@ okrem iného:
 * vo svojom riešení môžete použiť knižnicu lombok a jej anotácie. Potrebná dependencia je už pridaná v _pom.xml_ súbore.
 
 Niektoré z vecí, za ktoré sme minulý rok strhli po 0,5 - 1 bode:
-* Pouzivanie service cez Autowire
-* Rovnaka trieda pre response aj pre DB
-* Unused kod
+* Inicializovanie service cez setter a nie cez Autowired
+* Rovnaká trieda pre response aj pre DB
+* Unused kód
 * Nepouzivanie Interface pre service
-* Nepouzitie repozitarov
+* Nepoužitie repozitárov
 * Jeden controller
-* Zle konvencie a pomenovania
+* Zlé konvencie a pomenovania
 
 Prípadne sú pri nedostatočnej implementácií struhnuté body za OOP za nedostatočnú implementáciu.
 
@@ -54,7 +54,7 @@ Prípadne sú pri nedostatočnej implementácií struhnuté body za OOP za nedos
 
 ## Odovzdávanie
 Zadanie si naklonujte z repozitára zadania výhradne pomocou poskytnutej linky cez GitHub Classroom (pokiaľ si vygenerujete vlastný repozitár pomocou tlačidla "Use this template" z template repozitára, my váš repozitár neuvidíme a nebudeme ho hodnotiť!). Svoje vypracovanie nahrajte do pre vás vytvoreného repozitára pre toto zadanie pomocou programu Git (git commit + git push).
-Skontrolujte si, či sa váš repozitár nachádza pod skupinov **Interes-Group**, inak nemáme prístup ku vášmu repozitáru a zadanie sa nepovažuje za odovzdané. Vypracovanie môžete "pusho-vať" priebežne. Hodnotiť sa bude iba _master_ branch. Zadanie je nutné vypracovať do **6.5.2022 23:00**.
+Skontrolujte si, či sa váš repozitár nachádza pod skupinov **Interes-Group**, inak nemáme prístup ku vášmu repozitáru a zadanie sa nepovažuje za odovzdané. Vypracovanie môžete "pusho-vať" priebežne. Hodnotiť sa bude iba _master_ branch. Zadanie je nutné vypracovať do **13.5.2022 23:00**.
 
 V projekte upravujte iba súbory v priečinku _src/main/java_ a jeho podpriečinkoch. Ostatné súbory je upravovať zakázané (predovšetkým súbory _pom.xml_, súbory obsahujúce github pipeline-y a súbory obsahujúce automatizované testy, pri zmene týchto súborov môžte byť ohodnotený 0 bodmi).
 
