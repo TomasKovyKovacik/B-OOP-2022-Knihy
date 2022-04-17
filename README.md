@@ -69,7 +69,7 @@ Your task is to create an application server using Java with the Spring framewor
 
 The application server enables management of books, authors and lending lists of books (for example like in a library). The web Interface (API), and also the objects that are used to communicate with the outside world are defined in the specification and must be used to communicate through the web services. Outside the web interface you can use any other objects according to your design, if you deem it appropriate.
 
-The web interface specification (API) that the application has to provide can be found here: -----------------------------------------------------
+The web interface specification (API) that the application has to provide can be found here: https://app.swaggerhub.com/apis-docs/stuba-fei-uim-oop/OOPZadanie3Knihy/1.0.0-oas3
 
 If the specification states that a 404 code should be returned, and the description does not say when, it is necessary to return it, if the given ID does not exist in the system.
 
