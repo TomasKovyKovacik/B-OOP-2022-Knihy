@@ -26,7 +26,7 @@ Projekt obsahuje automatizované testy. Testy sa **NESPÚŠŤAJÚ** automaticky 
 
 ## Hodnotenie
 
-Zadanie je hodnotené 15 bodmi. OOP princípy a Spring záležitosti sú hodnotené 5 bodmi (v prípade tohto zadania môže byt aj viac). 10 bodov sa dostáva za automatizované testy. Prvých 14 testov hodnotených nie je, za každý další úspešný test dostanete 0,33 bodu. **Odovzdaný program musí byť skompilovateľný, inak je
+Zadanie je hodnotené 15 bodmi. OOP princípy a Spring záležitosti sú hodnotené 5 bodmi (v prípade tohto zadania môže byť za chyby strhnutých aj viac ako 5 bodov). 10 bodov je možné získať za automatizované testy. Prvých 14 testov hodnotených nie je, za každý ďalší úspešný test dostanete 0,33 bodu. **Odovzdaný program musí byť skompilovateľný, inak je
 hodnotený 0 bodmi**. Skompilovateľnosť zadania kontroluje aj github pipeline. Hlavný dôraz v hodnotení sa kladie na objektový prístup a princípy OOP,
 okrem iného:
 
@@ -77,6 +77,10 @@ If the specification states that a 404 code should be returned, and the descript
 
 A detailed description of each operation is given in the API specification.
 
+The system allows the addition, removal and modification of books in a library, including the change of an author (a book can have only one author), as well as increasing the amount of available books.
+
+The system allows the creation and deletion of lists of lent books. Books can be added and removed from these lists (the same list can contain the same book at most once). The system allows lending of such lists, lending a lists increments lending count for each book on the list. Adding additional books to lists that are already lent out is not allowed.
+
 ---------------------------------------------------------------------------------
 
 ## Automated tests
@@ -87,7 +91,7 @@ The project contains automated tests. Tests **DO NOT** run automatically on git 
 
 ## Evaluation
 
-You can get 15 points for this assignment. **The program must be able to compile, otherwise 0 points are given for the assigment**.
+You can get 15 points for this assignment. 5 points are given for following OOP principles and correctly using the Spring framework (in this assignments more than 5 points can be deduced for mistakes). 10 points are given when your code passes all the automated tests. 0 points are awarded for the first 14 passing tests, all additional passing tests are worth 0,33 points. **The program must be able to compile, otherwise 0 points are given for the assigment**.
 
 The github pipeline checks whether the program can be compiled. The main focus during grading is put on object-oriented approach and OOP principles used by the solution.
 
@@ -122,7 +126,7 @@ Clone the assignment from the repository created from this template by the provi
 
 Make sure, that your repository was created under the **Interes-Group** group, otherwise we won't be able to access your repository, and the assignment will not be graded.
 
-You can push commits to the repository while you work - you don't have to push everything at once. Only the code in the _master_ branch will be graded. You have until **6.5.2022 23:00** to complete the assignment.
+You can push commits to the repository while you work - you don't have to push everything at once. Only the code in the _master_ branch will be graded. You have until **13.5.2022 23:00** to complete the assignment.
 
 Only edit files in the _src/main_ folder or its sub-folders. You mustn't change any other files in the repository (especially the _pom.xml_ file, and the github pipeline files).
 
