@@ -16,7 +16,7 @@ Podrobný popis jednotlivých operácii je uvedený v špecifikácii API.
 
 Systém umožňuje pridávanie a odoberanie kníh z knižnice. Dalej umožnuje úpravu existujúcich knih (aj zmenu autora, autor môže byť len jeden), ako aj navýšenie počtu stavu kníh v knižnici.
 
-Systém umožňuje vytváranie a vymazávanie listov s požičanými knihami. Do listov je možné pridávať a odoberať knihy (vždy v jednom liste môže byt len jedna kniha). Systém ďalej umožnuje požičanie ešte nevypožičaných listov. Do už vypožičaných listov kníh nie je možné prídávať knihy.
+Systém umožňuje vytváranie a vymazávanie listov s požičanými knihami. Do listov je možné pridávať a odoberať knihy (vždy v jednom liste môže byt len jedna kniha). Systém ďalej umožnuje požičanie ešte nevypožičaných listov, čo inkrementuje počítadlo požičaných kópií v individuálnych knihách. Do už vypožičaných listov kníh nie je možné pridávať ďalšie knihy.
 
 ## Automatizované testy
 
@@ -40,15 +40,15 @@ okrem iného:
 * vo svojom riešení môžete použiť knižnicu lombok a jej anotácie. Potrebná dependencia je už pridaná v _pom.xml_ súbore.
 
 Niektoré z vecí, za ktoré sme minulý rok strhli po 0,5 - 1 bode:
-* Inicializovanie service cez setter a nie cez Autowired
+* Inicializovanie service cez setter a nie cez konštruktor (ak je to možné)
 * Rovnaká trieda pre response aj pre DB
-* Unused kód
-* Nepouzivanie Interface pre service
+* Mŕtvy/nevyužívaný kód
+* Nepoužívanie Interface pre service
 * Nepoužitie repozitárov
-* Jeden controller
+* Jeden controller pre všetky endpointy
 * Zlé konvencie a pomenovania
 
-Prípadne sú pri nedostatočnej implementácií struhnuté body za OOP za nedostatočnú implementáciu.
+Prípadne sú pri nedostatočnej implementácií strhnuté body za OOP za nedostatočnú implementáciu.
 
 **Pri zadaní sa kontroluje originalita zadaní, a všetky zadania so zhodou vyššou ako 80% sú hodnotené 0 bodmi.**
 
@@ -67,11 +67,11 @@ B-OOP 2021
 
 Your task is to create an application server using Java with the Spring framework.
 
-Application server  enables management of the books, authors and lending list of books (for example like in library). Web Interface(API), and also the objects that are used to communicate with the outside world are defined in the specification and must be used to communicate through web services. Outside the web interface you can use any other objects according to your design, if you deem it appropriate.
+The application server enables management of books, authors and lending lists of books (for example like in a library). The web Interface (API), and also the objects that are used to communicate with the outside world are defined in the specification and must be used to communicate through the web services. Outside the web interface you can use any other objects according to your design, if you deem it appropriate.
 
-Web interface specification that the application has to provide can be found here: -----------------------------------------------------
+The web interface specification (API) that the application has to provide can be found here: -----------------------------------------------------
 
-If the specification states that a 404 code should be returned, and the description does not say when, it is necessary to return if given ID does not exist in the system.
+If the specification states that a 404 code should be returned, and the description does not say when, it is necessary to return it, if the given ID does not exist in the system.
 
 ### System description
 
@@ -79,13 +79,13 @@ A detailed description of each operation is given in the API specification.
 
 ---------------------------------------------------------------------------------
 
-## Automatic tests
-Project contains automatic tests. Tests **DO NOT** run automatically on git push. If you want to verify how many of your implementations pass the tests, you must run them yourself. Tests can be run in 2 ways:
+## Automated tests
+The project contains automated tests. Tests **DO NOT** run automatically on git push. If you want to verify how many of your implementations pass the tests, you must run them yourself. Tests can be run in 2 ways:
 
-* using Maven, by launching lifecycle (side menu> maven> project> lifecycle> test)
-* by running tests directly from the class that contains them (located in rc/test/sk/.../oop/assignment3/Assignment3ApplicationTests.java))
+* using Maven, by launching the test lifecycle (side menu> maven> project> lifecycle> test)
+* by running tests directly from the class that contains them (located in src/test/sk/.../oop/assignment3/Assignment3ApplicationTests.java))
 
-## Valuation
+## Evaluation
 
 You can get 15 points for this assignment. **The program must be able to compile, otherwise 0 points are given for the assigment**.
 
@@ -102,19 +102,19 @@ Including, but not limited to:
 * don't put any logic into the main method and its class. The main method should only be used to initialize application using the Spring framework,
 * you can use the lombok library and its annotations in your solution. The neccessary dependency is already present in the _pom.xml_ file.
 
-Niektoré z vecí, za ktoré sme minulý rok strhli po 0,5 - 1 bode:
+Issues that resulted in a 0.5 - 1 point reduction last year:
 
-* Pouzivanie service cez Autowire
-* Rovnaka trieda pre response aj pre DB
-* Unused kod
-* Nepouzivanie Interface pre service
-* Nepouzitie repozitarov
-* Jeden controller
-* Zle konvencie a pomenovania
+* Using setters to initialize services and not injecting them through the constructor (if applicable)
+* Using the same class for the server response and for the database entity
+* Unused code
+* Lack of interfaces for the service classes
+* Lack of repositories
+* One controller for all endpoints
+* Not following the conventions and naming
 
-Prípadne sú pri nedostatočnej implementácií struhnuté body za OOP za nedostatočnú implementáciu.
+If the assignment lacks a substantial part of the specified functionality additional points are substracted.
 
-**Pri zadaní sa kontroluje originalita zadaní, a všetky zadania so zhodou vyššou ako 80% sú hodnotené 0 bodmi.**
+**The originality of the code is checks, all assignments with a more than 80% match are awarded with 0 points.**
 
 ## Handing in the assigment
 
