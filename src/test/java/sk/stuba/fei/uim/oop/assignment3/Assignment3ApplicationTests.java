@@ -440,7 +440,7 @@ class Assignment3ApplicationTests {
         assert updatedList.getLendingList().get(0).getId() == book.getId();
 
         TestBookIdRequest bookID = new TestBookIdRequest();
-        book.setId(book.getId());
+        bookID.setId(book.getId());
         mockMvc.perform(delete("/list/" + list.getId() + "/remove")
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
@@ -562,7 +562,6 @@ class Assignment3ApplicationTests {
         ).andExpect(status().isOk()).andReturn();
 
         mockMvc.perform(get("/list/" + list.getId())
-                .accept(MediaType.TEXT_PLAIN)
                 .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isNotFound());
     }
