@@ -19,7 +19,9 @@ import javax.transaction.Transactional;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -334,6 +336,60 @@ class Assignment3ApplicationTests {
                 .andExpect(status().isNotFound());
     }
 
+    @Test
+    void deletedBookRemovedFromAuthor() throws Exception {
+        TestAuthorResponse author = addAuthor();
+        TestBookResponse book1 = addBook(author.getId());
+        TestBookResponse book2 = addBook(author.getId());
+
+        mockMvc.perform(get("/author/" + author.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andDo(mvcResult -> {
+                    TestAuthorResponse authorToControl = stringToObject(mvcResult, TestAuthorResponse.class);
+                    assert authorToControl.books.size() == 2;
+                    assert authorToControl.books.contains(book1.getId());
+                    assert authorToControl.books.contains(book2.getId());
+                });
+
+        mockMvc.perform(delete("/book/" + book1.getId()))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/author/" + author.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andDo(mvcResult -> {
+                    TestAuthorResponse authorToControl = stringToObject(mvcResult, TestAuthorResponse.class);
+                    assert authorToControl.books.size() == 1;
+                    assert authorToControl.books.contains(book2.getId());
+                });
+    }
+
+    @Test
+    void deletingAuthorRemovesBooks() throws Exception {
+        TestAuthorResponse author = addAuthor();
+        TestBookResponse book1 = addBook(author.getId());
+        TestBookResponse book2 = addBook(author.getId());
+
+        mockMvc.perform(get("/book")
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk()).andDo(mvcResult -> {
+            List<Map<String, Object>> list = stringToObject(mvcResult, ArrayList.class);
+            assert list.size() == 2;
+            var ids = list.stream().map(b -> Long.valueOf((Integer) b.get("id"))).collect(Collectors.toSet());
+            assert ids.contains(book1.getId());
+            assert ids.contains(book2.getId());
+        });
+
+        mockMvc.perform(delete("/author/" + author.getId()))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/book/" + book1.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+
+        mockMvc.perform(get("/book/" + book2.getId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
+    }
 
     /////////////////////////////////////////////////////// LENDING LISTS
 
@@ -654,7 +710,11 @@ class Assignment3ApplicationTests {
 
     TestBookResponse addBook() throws Exception {
         TestAuthorResponse author = addAuthor();
-        return addBook("name", "description", 100, 4, 2, author.getId(), status().is2xxSuccessful());
+        return addBook(author.getId());
+    }
+
+    TestBookResponse addBook(long authorId) throws Exception {
+        return addBook("name", "description", 100, 4, 2, authorId, status().is2xxSuccessful());
     }
 
     TestBookResponse addBook(String name, String description, int pages, int amount, int lendCount, long author, ResultMatcher statusMatcher) throws Exception {
