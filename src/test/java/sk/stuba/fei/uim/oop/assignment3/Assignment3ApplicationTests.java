@@ -39,8 +39,19 @@ class Assignment3ApplicationTests {
     }
 
     @Test
+    void testAddAuthor201() throws Exception {
+        addAuthor("name", "surname", status().isCreated());
+    }
+
+    @Test
     void testAddBook() throws Exception {
         addBook();
+    }
+
+    @Test
+    void testAddBook201() throws Exception {
+        TestAuthorResponse author = addAuthor();
+        addBook("name", "desc", 10, 5, 0, author.getId(), status().isCreated());
     }
 
     @Test
@@ -329,6 +340,11 @@ class Assignment3ApplicationTests {
     @Test
     void testAddShoppingCart() throws Exception {
         addList();
+    }
+
+    @Test
+    void testAddShoppingCart201() throws Exception {
+        addList(status().isCreated());
     }
 
     @Test
