@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
 import sk.stuba.fei.uim.oop.assignment3.author.logic.IAuthorService;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
-import sk.stuba.fei.uim.oop.assignment3.book.data.BookRepository;
+import sk.stuba.fei.uim.oop.assignment3.book.data.IBookRepository;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.web.bodies.BookUpdateRequest;
 import sk.stuba.fei.uim.oop.assignment3.exception.IllegalOperationException;
@@ -18,7 +18,7 @@ import java.util.List;
 public class BookService implements IBookService {
 
     @Autowired
-    private BookRepository repository;
+    private IBookRepository repository;
 
     @Autowired
     private IAuthorService authorService;

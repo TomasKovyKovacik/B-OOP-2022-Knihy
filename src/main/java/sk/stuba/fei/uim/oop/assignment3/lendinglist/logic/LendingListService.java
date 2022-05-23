@@ -7,7 +7,7 @@ import sk.stuba.fei.uim.oop.assignment3.book.logic.IBookService;
 import sk.stuba.fei.uim.oop.assignment3.exception.IllegalOperationException;
 import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.lendinglist.data.LendingList;
-import sk.stuba.fei.uim.oop.assignment3.lendinglist.data.LendingListRepository;
+import sk.stuba.fei.uim.oop.assignment3.lendinglist.data.ILendingListRepository;
 import sk.stuba.fei.uim.oop.assignment3.lendinglist.web.bodies.BookIdRequest;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 public class LendingListService implements ILendingListService {
 
     @Autowired
-    private LendingListRepository repository;
+    private ILendingListRepository repository;
 
     @Autowired
     private IBookService bookService;

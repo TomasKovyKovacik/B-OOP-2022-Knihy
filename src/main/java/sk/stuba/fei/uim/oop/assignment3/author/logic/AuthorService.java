@@ -3,7 +3,7 @@ package sk.stuba.fei.uim.oop.assignment3.author.logic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sk.stuba.fei.uim.oop.assignment3.author.data.Author;
-import sk.stuba.fei.uim.oop.assignment3.author.data.AuthorRepository;
+import sk.stuba.fei.uim.oop.assignment3.author.data.IAuthorRepository;
 import sk.stuba.fei.uim.oop.assignment3.author.web.bodies.AuthorRequest;
 import sk.stuba.fei.uim.oop.assignment3.book.data.Book;
 import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
@@ -14,7 +14,7 @@ import java.util.List;
 public class AuthorService implements IAuthorService {
 
     @Autowired
-    private AuthorRepository repository;
+    private IAuthorRepository repository;
 
     @Override
     public List<Author> getAll() {
